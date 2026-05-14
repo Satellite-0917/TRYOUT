@@ -495,26 +495,22 @@ function updateImgTransform(idx) {
 function downloadCard(idx) {
   var el = document.getElementById('castcard_'+idx);
   if (!el) return;
+
   var d = castList[idx];
+
   html2canvas(el, {
     scale: 3,
     useCORS: true,
     allowTaint: true,
-    backgroundColor: d.cb,
-    logging: false,
-    width: 300,
-    height: 520,
-    scrollX: -window.scrollX,
-    scrollY: -window.scrollY
+    backgroundColor: null,
+    logging: false
   }).then(function(canvas) {
-    // canvas가 크더라도 앞 900x1560만 잘라서 저장
-    var out = document.createElement('canvas');
-    out.width = 900; out.height = 1560;
-    out.getContext('2d').drawImage(canvas, 0, 0, 900, 1560, 0, 0, 900, 1560);
+
     var a = document.createElement('a');
-    a.download = 'tryout_'+(d.name||'card')+'.png';
-    a.href = out.toDataURL('image/png');
+    a.download = 'tryout_' + (d.name || 'card') + '.png';
+    a.href = canvas.toDataURL('image/png');
     a.click();
+
   });
 }
 
