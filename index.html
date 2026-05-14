@@ -627,10 +627,24 @@ function downloadCard(idx) {
   var el = document.getElementById('castcard_' + idx);
   if (!el) return;
 
-  html2canvas(el, {scale:3, useCORS:true, allowTaint:true, backgroundColor:null, logging:false}).then(function(canvas) {
+  var sc = 3, W = 300, H = 520;
+  html2canvas(el, {
+    scale: sc,
+    useCORS: true,
+    allowTaint: true,
+    backgroundColor: null,
+    logging: false,
+    width: W,
+    height: H
+  }).then(function(canvas) {
+    // 정확히 카드 크기(300x520)로 자르기
+    var out = document.createElement('canvas');
+    out.width = W * sc;
+    out.height = H * sc;
+    out.getContext('2d').drawImage(canvas, 0, 0, W*sc, H*sc, 0, 0, W*sc, H*sc);
     var a = document.createElement('a');
     a.download = 'tryout_' + (d.name || 'card') + '.png';
-    a.href = canvas.toDataURL('image/png');
+    a.href = out.toDataURL('image/png');
     a.click();
   });
 }
