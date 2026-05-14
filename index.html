@@ -9,10 +9,9 @@
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
-  --navy: #1B2A4A; --navy-dark: #0f1a2e; --navy-mid: #1e3260;
-  --pink: #F0406A; --pink-light: #ff6b8a;
-  --cream: #f5f0e8; --bg: #e8e0d4; --panel: #f5f0e8;
-  --border: rgba(27,42,74,0.12); --text: #1B2A4A; --muted: #8a7f72;
+  --navy: #1B2A4A; --navy-mid: #1e3260;
+  --pink: #F0406A; --border: rgba(27,42,74,0.12);
+  --text: #1B2A4A; --muted: #8a7f72;
 }
 body {
   background: #fdf3ea; color: var(--text);
@@ -31,58 +30,59 @@ body {
 .cast-toolbar { display: flex; align-items: center; gap: 12px; width: 100%; max-width: 960px; flex-wrap: wrap; justify-content: space-between; }
 .btn-add { display: flex; align-items: center; gap: 7px; background: linear-gradient(90deg, var(--pink), #d42d5a); border: none; border-radius: 10px; color: #fff; font-family: 'Black Han Sans', sans-serif; font-size: 13px; letter-spacing: 3px; cursor: pointer; padding: 11px 20px; box-shadow: 0 4px 16px rgba(240,64,106,0.3); -webkit-tap-highlight-color: transparent; }
 .btn-add:active { transform: scale(0.97); }
-.btn-clear-all { background: transparent; border: 1.5px solid rgba(27,42,74,0.2); border-radius: 10px; color: rgba(27,42,74,0.45); font-family: 'Pretendard', sans-serif; font-size: 12px; cursor: pointer; padding: 11px 16px; -webkit-tap-highlight-color: transparent; }
+.btn-clear-all { background: transparent; border: 1.5px solid rgba(27,42,74,0.2); border-radius: 10px; color: rgba(27,42,74,0.45); font-family: 'Pretendard', sans-serif; font-size: 12px; cursor: pointer; padding: 11px 16px; }
 
 /* CAST GRID */
-.cast-grid { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; width: 100%; max-width: 960px; }
+.cast-grid { display: flex; flex-wrap: wrap; gap: 32px; justify-content: center; width: 100%; max-width: 960px; }
 .cast-item { display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .cast-item-actions { display: flex; gap: 6px; }
-.cast-item-actions button { border: none; border-radius: 8px; font-family: 'Pretendard', sans-serif; font-size: 11px; padding: 6px 11px; cursor: pointer; letter-spacing: 0.5px; -webkit-tap-highlight-color: transparent; }
+.cast-item-actions button { border: none; border-radius: 8px; font-family: 'Pretendard', sans-serif; font-size: 11px; padding: 6px 11px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .btn-edit-cast { background: var(--navy); color: #fff; }
 .btn-dl-cast { background: rgba(240,64,106,0.15); color: var(--pink); border: 1px solid rgba(240,64,106,0.3) !important; }
 .btn-del-cast { background: rgba(27,42,74,0.08); color: rgba(27,42,74,0.45); }
 .cast-empty { text-align: center; padding: 48px 20px; color: rgba(27,42,74,0.3); font-size: 14px; letter-spacing: 1px; }
 .cast-empty .empty-icon { font-size: 48px; margin-bottom: 12px; display: block; }
 
+/* 사진 조정 힌트 */
+.photo-hint { font-size: 10px; color: rgba(27,42,74,0.4); text-align: center; letter-spacing: 0.5px; margin-top: -4px; }
+
 /* MODAL */
 .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.55); z-index: 100; align-items: flex-start; justify-content: center; padding: 20px; overflow-y: auto; }
 .modal-overlay.open { display: flex; }
-.modal-inner { background: #ddd6c8; border-radius: 20px; padding: 20px 14px 32px; width: 100%; max-width: 420px; margin: auto; display: flex; flex-direction: column; align-items: center; gap: 20px; position: relative; }
-.modal-close { position: absolute; top: 14px; right: 16px; background: rgba(27,42,74,0.08); border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; color: var(--navy); display: flex; align-items: center; justify-content: center; -webkit-tap-highlight-color: transparent; }
+.modal-inner { background: #fdf3ea; border-radius: 20px; padding: 20px 14px 32px; width: 100%; max-width: 420px; margin: auto; display: flex; flex-direction: column; align-items: center; gap: 20px; position: relative; }
+.modal-close { position: absolute; top: 14px; right: 16px; background: rgba(27,42,74,0.08); border: none; border-radius: 50%; width: 32px; height: 32px; font-size: 16px; cursor: pointer; color: var(--navy); display: flex; align-items: center; justify-content: center; }
 
-/* ── CARD (index__1__ 스타일) ── */
+/* CARD */
 .card {
   width: 300px; height: 520px; border-radius: 10px;
   overflow: hidden; position: relative; flex-shrink: 0;
-  display: flex; flex-direction: column;
   box-shadow: 0 0 0 1.5px rgba(27,42,74,0.15), 4px 4px 0 rgba(27,42,74,0.08), 0 16px 40px rgba(27,42,74,0.25);
 }
-.card-jersey-lines { position: absolute; inset: 0; background: none; z-index: 1; pointer-events: none; }
-.card-stripe { position: absolute; top: 0; left: 0; right: 0; height: 8px; z-index: 6; display: flex; }
-.card-stripe-left { flex: 1; background: var(--pink); }
-.card-stripe-right { flex: 1; background: var(--navy-mid); }
-.card-tag { position: absolute; top: 16px; left: 0; z-index: 6; background: var(--pink); padding: 4px 14px 4px 12px; clip-path: polygon(0 0, 100% 0, 92% 100%, 0 100%); font-family: 'Black Han Sans', sans-serif; font-size: 11px; letter-spacing: 3px; color: #fff; }
-.card-number-badge { position: absolute; top: 12px; right: 14px; z-index: 6; font-family: 'Anton', sans-serif; font-size: 48px; line-height: 1; color: rgba(27,42,74,0.07); letter-spacing: -2px; }
-.photo-area { width: 100%; position: absolute; inset: 0; overflow: hidden; background: #000; }
-.photo-area img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; transform-origin: center center; user-select: none; -webkit-user-drag: none; touch-action: none; position: absolute; top: 0; left: 0; }
+.card-stripe { position: absolute; top: 0; left: 0; right: 0; height: 8px; z-index: 6; display: flex; pointer-events: none; }
+.card-stripe-left { flex: 1; }
+.card-stripe-right { flex: 1; }
+.card-tag { position: absolute; top: 16px; left: 0; z-index: 6; padding: 4px 14px 4px 12px; clip-path: polygon(0 0, 100% 0, 92% 100%, 0 100%); font-family: 'Black Han Sans', sans-serif; font-size: 11px; letter-spacing: 3px; color: #fff; pointer-events: none; }
+.card-number-badge { position: absolute; top: 12px; right: 14px; z-index: 6; font-family: 'Anton', sans-serif; font-size: 48px; line-height: 1; color: rgba(255,255,255,0.08); letter-spacing: -2px; pointer-events: none; }
+.photo-area { position: absolute; inset: 0; overflow: hidden; background: #111; cursor: grab; }
+.photo-area:active { cursor: grabbing; }
+.photo-area img { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; transform-origin: center top; user-select: none; -webkit-user-drag: none; touch-action: none; }
 .gradient-overlay { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 .photo-empty { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
-.photo-empty svg { opacity: 0.25; stroke: #1B2A4A; }
+.photo-empty svg { opacity: 0.25; }
 .photo-empty span { font-size: 10px; color: var(--muted); letter-spacing: 2px; }
-.card-cut { display: none; }
-.card-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 16px 24px; display: flex; flex-direction: column; justify-content: flex-end; gap: 0; z-index: 5; }
-.card-position { font-family: 'Black Han Sans', sans-serif; font-size: 9px; letter-spacing: 3px; color: var(--pink); }
+.card-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 10px 16px 24px; display: flex; flex-direction: column; justify-content: flex-end; z-index: 5; pointer-events: none; }
+.card-position { font-family: 'Black Han Sans', sans-serif; font-size: 9px; letter-spacing: 3px; }
 .card-name { font-family: 'Pretendard', sans-serif; font-weight: 600; font-size: 26px; letter-spacing: 1px; line-height: 1; color: #fff; text-shadow: 0 2px 8px rgba(0,0,0,0.4); }
-.card-age-job { font-family: 'Pretendard', sans-serif; font-size: 10px; color: rgba(255,255,255,0.8); letter-spacing: 1px; margin-top: 2px; display: flex; gap: 10px; align-items: center; }
-.card-divider { height: 1px; background: linear-gradient(90deg, var(--pink) 0%, rgba(255,255,255,0.2) 70%, transparent 100%); margin: 3px 0; }
+.card-age-job { font-family: 'Pretendard', sans-serif; font-size: 10px; color: rgba(255,255,255,0.8); letter-spacing: 1px; margin-top: 2px; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.card-divider { height: 1px; margin: 4px 0; }
 .card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 14px; }
-.stat-row { display: flex; align-items: center; gap: 6px; }
-.stat-lbl { font-family: 'Black Han Sans', sans-serif; font-size: 10px; letter-spacing: 1.5px; color: rgba(255,255,255,0.95); width: 30px; flex-shrink: 0; text-shadow: 0 1px 4px rgba(0,0,0,0.4); }
-.card-logo { position: absolute; bottom: 12px; right: 14px; font-family: 'Black Han Sans', sans-serif; font-size: 9px; letter-spacing: 3px; color: rgba(255,255,255,0.2); z-index: 6; }
-.card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(130deg, rgba(255,255,255,0.35) 0%, transparent 55%); z-index: 9; pointer-events: none; }
+.stat-row { display: flex; align-items: center; gap: 4px; }
+.stat-lbl { font-family: 'Black Han Sans', sans-serif; font-size: 10px; letter-spacing: 1px; color: rgba(255,255,255,0.95); width: 28px; flex-shrink: 0; text-shadow: 0 1px 4px rgba(0,0,0,0.5); }
+.card-logo { text-align: right; font-family: 'Black Han Sans', sans-serif; font-size: 9px; letter-spacing: 3px; color: rgba(255,255,255,0.18); margin-top: 4px; }
+.card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(130deg, rgba(255,255,255,0.2) 0%, transparent 50%); z-index: 9; pointer-events: none; }
 
 /* PANEL */
-.panel { width: 100%; max-width: 400px; background: #faf7f2; border: 1px solid rgba(27,42,74,0.1); border-radius: 16px; box-shadow: 0 2px 16px rgba(27,42,74,0.1); padding: 22px 18px; display: flex; flex-direction: column; gap: 20px; }
+.panel { width: 100%; max-width: 400px; background: #faf7f2; border: 1px solid rgba(27,42,74,0.1); border-radius: 16px; padding: 22px 18px; display: flex; flex-direction: column; gap: 20px; }
 .sec-title { font-family: 'Black Han Sans', sans-serif; font-size: 11px; letter-spacing: 4px; color: var(--muted); text-transform: uppercase; padding-bottom: 8px; border-bottom: 1px solid rgba(27,42,74,0.1); margin-bottom: 4px; }
 .field { display: flex; flex-direction: column; gap: 4px; }
 .field label { font-size: 11px; color: rgba(27,42,74,0.5); }
@@ -92,40 +92,35 @@ input[type=text]:focus, input[type=number]:focus { border-color: var(--pink); }
 .color-field { display: flex; align-items: center; gap: 8px; }
 .color-field label { font-size: 11px; color: rgba(27,42,74,0.5); width: 58px; flex-shrink: 0; margin: 0; }
 input[type=color] { width: 36px; height: 34px; border: 1px solid rgba(27,42,74,0.15); border-radius: 6px; padding: 2px; background: #fff; cursor: pointer; flex-shrink: 0; -webkit-appearance: none; }
-.hex-inp { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: 'Courier New', monospace; font-size: 13px; padding: 8px 10px; outline: none; -webkit-appearance: none; }
+.hex-inp { flex: 1; background: #fff; border: 1px solid var(--border); border-radius: 6px; color: var(--text); font-family: 'Courier New', monospace; font-size: 13px; padding: 8px 10px; outline: none; }
 .hex-inp:focus { border-color: var(--pink); }
 .col-dot { width: 20px; height: 20px; border-radius: 50%; border: 2px solid rgba(27,42,74,0.15); flex-shrink: 0; }
-.upload-label { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 18px; background: rgba(27,42,74,0.03); border: 1.5px dashed rgba(27,42,74,0.2); border-radius: 12px; cursor: pointer; font-size: 14px; color: rgba(27,42,74,0.45); letter-spacing: 1px; text-align: center; -webkit-tap-highlight-color: transparent; min-height: 64px; transition: border-color 0.2s, background 0.2s; }
-.upload-label:active { border-color: var(--pink); background: rgba(240,64,106,0.07); }
+.upload-label { display: flex; align-items: center; justify-content: center; gap: 10px; padding: 18px; background: rgba(27,42,74,0.03); border: 1.5px dashed rgba(27,42,74,0.2); border-radius: 12px; cursor: pointer; font-size: 14px; color: rgba(27,42,74,0.45); letter-spacing: 1px; min-height: 64px; }
 .upload-label.loaded { border-color: rgba(27,42,74,0.25); background: rgba(27,42,74,0.04); }
 .thumb-row { display: flex; align-items: center; gap: 10px; width: 100%; }
 .photo-thumb { width: 42px; height: 42px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
 .thumb-text { flex: 1; font-size: 12px; color: rgba(27,42,74,0.55); }
-.btn-remove { background: rgba(240,64,106,0.2); border: none; border-radius: 6px; color: var(--pink); font-size: 12px; padding: 5px 10px; cursor: pointer; flex-shrink: 0; }
+.btn-remove { background: rgba(240,64,106,0.2); border: none; border-radius: 6px; color: var(--pink); font-size: 12px; padding: 5px 10px; cursor: pointer; }
 .stat-ctrl-row { display: flex; align-items: center; gap: 10px; }
 .stat-ctrl-label { font-family: 'Black Han Sans', sans-serif; font-size: 11px; letter-spacing: 1px; color: rgba(27,42,74,0.55); width: 50px; flex-shrink: 0; }
 .stat-boxes { display: flex; gap: 5px; }
-.stat-box { width: 34px; height: 34px; border: 1.5px solid rgba(27,42,74,0.2); border-radius: 7px; cursor: pointer; background: rgba(27,42,74,0.04); -webkit-tap-highlight-color: transparent; transition: background 0.12s, border-color 0.12s, transform 0.1s; }
+.stat-box { width: 34px; height: 34px; border: 1.5px solid rgba(27,42,74,0.2); border-radius: 7px; cursor: pointer; background: rgba(27,42,74,0.04); transition: background 0.12s, border-color 0.12s; }
 .stat-box.on { background: var(--pink); border-color: var(--pink); box-shadow: 0 0 8px rgba(240,64,106,0.5); }
-.stat-box:active { transform: scale(0.9); }
-.btn-dl { width: 100%; padding: 15px; background: linear-gradient(90deg, var(--pink), #d42d5a); border: none; border-radius: 12px; color: #fff; font-family: 'Black Han Sans', sans-serif; font-size: 15px; letter-spacing: 4px; cursor: pointer; -webkit-tap-highlight-color: transparent; box-shadow: 0 4px 20px rgba(240,64,106,0.35); }
+.btn-dl { width: 100%; padding: 15px; background: linear-gradient(90deg, var(--pink), #d42d5a); border: none; border-radius: 12px; color: #fff; font-family: 'Black Han Sans', sans-serif; font-size: 15px; letter-spacing: 4px; cursor: pointer; box-shadow: 0 4px 20px rgba(240,64,106,0.35); }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <div class="header">
   <div class="logo-tryout">TRY<span>&#9825;</span>UT</div>
   <div class="logo-sub">너와의 첫 매치를 시작합니다 · Profile Card</div>
 </div>
 
-<!-- TOOLBAR -->
 <div class="cast-toolbar">
   <button class="btn-add" onclick="openModal()">＋ 출연자 추가</button>
   <button class="btn-clear-all" onclick="clearAll()">전체 초기화</button>
 </div>
 
-<!-- CAST GRID -->
 <div class="cast-grid" id="castGrid">
   <div class="cast-empty" id="castEmpty">
     <span class="empty-icon">&#9825;</span>
@@ -133,65 +128,23 @@ input[type=color] { width: 36px; height: 34px; border: 1px solid rgba(27,42,74,0
   </div>
 </div>
 
-<!-- MODAL -->
+<!-- MODAL (정보/색상/스탯/사진 업로드만) -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-inner">
     <button class="modal-close" onclick="closeModal()">&#10005;</button>
-
-    <!-- CARD PREVIEW -->
-    <div class="card" id="card">
-      <div class="card-jersey-lines"></div>
-      <div class="card-stripe">
-        <div class="card-stripe-left" id="stripeLeft"></div>
-        <div class="card-stripe-right" id="stripeRight"></div>
-      </div>
-      <div class="card-tag" id="cardTag">TRYOUT</div>
-      <div class="card-number-badge" id="cardBadge">01</div>
-      <div class="photo-area" id="photoArea">
-        <div class="photo-empty">
-          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" stroke-width="1.2">
-            <rect x="3" y="3" width="18" height="18" rx="3"/>
-            <circle cx="12" cy="10" r="3"/>
-            <path d="M3 20c0-3 3-5 9-5s9 2 9 5"/>
-          </svg>
-          <span>사진을 넣어보세요</span>
-        </div>
-      </div>
-      <div class="card-cut" id="cardCut"></div>
-      <div class="gradient-overlay" id="gradientOverlay" style="position:absolute;inset:0;z-index:3;pointer-events:none;"></div>
-      <div class="card-info">
-        <div style="display:flex;flex-direction:column;justify-content:flex-end;">
-          <div class="card-position" id="cPos">NO. 01 · TRYOUT 2026</div>
-          <div style="height:3px;"></div>
-          <div class="card-name" id="cName">김지우</div>
-          <div style="height:5px;"></div>
-          <div class="card-age-job"><span id="cAge">24세</span><span style="opacity:0.4;margin:0 2px;">·</span><span id="cJob">인테리어 디자이너</span><span style="opacity:0.4;margin:0 2px;">·</span><span id="cHeight">168cm</span></div>
-          <div style="height:8px;"></div>
-        </div>
-        <div class="card-divider"></div>
-        <div style="display:flex;flex-direction:column;justify-content:flex-start;">
-          <div style="height:5px;"></div>
-          <div class="card-stats" id="cStats"></div>
-          <div style="height:6px;"></div>
-          <div class="card-logo" id="cLogo" style="position:static;text-align:right;"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- PANEL -->
-    <div class="panel">
+    <div class="panel" style="box-shadow:none;border:none;background:transparent;padding:40px 0 0;">
       <div>
         <div class="sec-title">기본 정보</div>
         <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px;">
-          <div class="field"><label>이름</label><input type="text" id="iName" value="김지우" oninput="sync()"></div>
+          <div class="field"><label>이름</label><input type="text" id="iName" value=""></div>
           <div class="row2">
-            <div class="field"><label>나이</label><input type="number" id="iAge" value="24" min="18" max="60" oninput="sync()"></div>
-            <div class="field"><label>키 (cm)</label><input type="number" id="iHeight" value="168" min="140" max="220" oninput="sync()"></div>
+            <div class="field"><label>나이</label><input type="number" id="iAge" value="24" min="18" max="60"></div>
+            <div class="field"><label>키 (cm)</label><input type="number" id="iHeight" value="168" min="140" max="220"></div>
           </div>
-          <div class="field"><label>직업</label><input type="text" id="iJob" value="인테리어 디자이너" oninput="sync()"></div>
+          <div class="field"><label>직업</label><input type="text" id="iJob" value=""></div>
           <div class="row2">
-            <div class="field"><label>등번호</label><input type="text" id="iNum" value="01" oninput="sync()"></div>
-            <div class="field"><label>프로그램명</label><input type="text" id="iShow" value="TRYOUT 2026" oninput="sync()"></div>
+            <div class="field"><label>등번호</label><input type="text" id="iNum" value="01"></div>
+            <div class="field"><label>프로그램명</label><input type="text" id="iShow" value="TRYOUT 2026"></div>
           </div>
         </div>
       </div>
@@ -222,26 +175,12 @@ input[type=color] { width: 36px; height: 34px; border: 1px solid rgba(27,42,74,0
         <div class="sec-title">사진</div>
         <div style="margin-top:10px;">
           <label class="upload-label" id="uploadLabel" for="fileInput">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-              <polyline points="17 8 12 3 7 8"/>
-              <line x1="12" y1="3" x2="12" y2="15"/>
-            </svg>
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
             <span>탭하여 사진 선택</span>
           </label>
           <input type="file" id="fileInput" accept="image/*" style="display:none" onchange="onFileChange(this)">
         </div>
-      </div>
-      <div id="photoEditSection" style="display:none;">
-        <div class="sec-title">사진 편집</div>
-        <div style="margin-top:8px;padding:10px;background:rgba(27,42,74,0.05);border-radius:10px;border:1px solid rgba(27,42,74,0.1);">
-          <p style="font-size:12px;color:rgba(27,42,74,0.55);text-align:center;line-height:1.6;">
-            📌 카드 위 사진을<br>
-            <strong>드래그</strong>로 위치 조절<br>
-            <strong>두 손가락 핀치</strong>로 확대/축소
-          </p>
-          <button onclick="resetPhotoTransform()" style="width:100%;margin-top:10px;padding:8px;border-radius:8px;border:1px solid rgba(27,42,74,0.2);background:rgba(27,42,74,0.06);color:rgba(27,42,74,0.7);font-size:12px;cursor:pointer;">&#8635; 위치 초기화</button>
-        </div>
+        <p style="font-size:11px;color:rgba(27,42,74,0.4);text-align:center;margin-top:8px;line-height:1.6;">저장 후 카드에서 직접<br>드래그 · 핀치로 사진 위치 조절하세요</p>
       </div>
       <div>
         <div class="sec-title">스탯</div>
@@ -249,16 +188,15 @@ input[type=color] { width: 36px; height: 34px; border: 1px solid rgba(27,42,74,0
       </div>
       <button class="btn-dl" onclick="saveAndClose()">&#10004; 저장</button>
     </div>
-
   </div>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script>
-var col = { c1:'#F0406A', c2:'#1B2A4A', cb:'#f5f0e8' };
-var photoUrl = null;
-var imgX = 0, imgY = 0, imgScale = 1;
-var dragStart = null, lastDist = 0;
+var mCol = { c1:'#F0406A', c2:'#1B2A4A', cb:'#f5f0e8' };
+var mPhotoUrl = null;
+var castList = [];
+var editingIdx = -1;
 
 var STATS = [
   {key:'body',  lbl:'신체', val:3},
@@ -268,193 +206,60 @@ var STATS = [
   {key:'luck',  lbl:'행운', val:2}
 ];
 
-/* stat box UI */
-var wrap = document.getElementById('statWrap');
+/* stat boxes */
+var swrap = document.getElementById('statWrap');
 STATS.forEach(function(s, i) {
   var d = document.createElement('div');
   d.className = 'stat-ctrl-row';
   var boxes = '';
-  for (var n = 1; n <= 5; n++) {
-    boxes += '<div class="stat-box' + (n <= s.val ? ' on' : '') + '" onclick="setStat(' + i + ',' + n + ')" id="box_' + s.key + '_' + n + '"></div>';
-  }
-  d.innerHTML = '<span class="stat-ctrl-label">' + s.lbl + '</span><div class="stat-boxes">' + boxes + '</div>';
-  wrap.appendChild(d);
+  for (var n = 1; n <= 5; n++)
+    boxes += '<div class="stat-box'+(n<=s.val?' on':'')+'" onclick="setStat('+i+','+n+')" id="box_'+s.key+'_'+n+'"></div>';
+  d.innerHTML = '<span class="stat-ctrl-label">'+s.lbl+'</span><div class="stat-boxes">'+boxes+'</div>';
+  swrap.appendChild(d);
 });
 
 function setStat(i, v) {
   STATS[i].val = v;
-  var s = STATS[i];
   for (var n = 1; n <= 5; n++) {
-    var el = document.getElementById('box_' + s.key + '_' + n);
-    if (el) el.className = 'stat-box' + (n <= v ? ' on' : '');
+    var el = document.getElementById('box_'+STATS[i].key+'_'+n);
+    if (el) el.className = 'stat-box'+(n<=v?' on':'');
   }
-  renderStats();
 }
 
-/* color */
 function validHex(h) { return /^#[0-9A-Fa-f]{6}$/.test(h); }
 function pickerChange(k, v) {
-  col[k] = v;
-  document.getElementById(k + 'h').value = v;
-  document.getElementById(k + 'd').style.background = v;
-  sync();
+  mCol[k] = v;
+  document.getElementById(k+'h').value = v;
+  document.getElementById(k+'d').style.background = v;
 }
 function hexChange(k, raw) {
   var v = raw.trim();
-  if (v && v[0] !== '#') v = '#' + v;
-  if (validHex(v)) {
-    col[k] = v;
-    document.getElementById(k + 'p').value = v;
-    document.getElementById(k + 'd').style.background = v;
-    sync();
-  }
+  if (v && v[0] !== '#') v = '#'+v;
+  if (validHex(v)) { mCol[k]=v; document.getElementById(k+'p').value=v; document.getElementById(k+'d').style.background=v; }
 }
 
-/* photo */
 function onFileChange(input) {
   var file = input.files && input.files[0];
   if (!file) return;
   var reader = new FileReader();
-  reader.onload = function(e) { photoUrl = e.target.result; setPhoto(); };
+  reader.onload = function(e) {
+    mPhotoUrl = e.target.result;
+    var lbl = document.getElementById('uploadLabel');
+    lbl.classList.add('loaded');
+    lbl.innerHTML = '<div class="thumb-row"><img class="photo-thumb" src="'+mPhotoUrl+'"><span class="thumb-text">사진 변경하려면 탭</span><button class="btn-remove" onclick="clearModalPhoto(event)">제거</button></div>';
+  };
   reader.readAsDataURL(file);
 }
-
-function resetPhotoTransform() {
-  imgX = 0; imgY = 0; imgScale = 1;
-  applyImgTransform();
-}
-
-function applyImgTransform() {
-  var img = document.getElementById('cardImg');
-  if (!img) return;
-  img.style.transform = 'translate(' + imgX + 'px,' + imgY + 'px) scale(' + imgScale + ')';
-}
-
-function setPhoto() {
-  imgX = 0; imgY = 0; imgScale = 1;
-  var area = document.getElementById('photoArea');
-  area.innerHTML = '';
-  var img = document.createElement('img');
-  img.id = 'cardImg';
-  img.src = photoUrl;
-  img.style.cssText = 'width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transform-origin:center top;user-select:none;-webkit-user-drag:none;touch-action:none;position:absolute;top:0;left:0;';
-  area.appendChild(img);
-  document.getElementById('photoEditSection').style.display = 'block';
-
-  var area2 = document.getElementById('photoArea');
-  area2.onmousedown = function(e) {
-    e.preventDefault();
-    dragStart = {x: e.clientX - imgX, y: e.clientY - imgY};
-    document.onmousemove = function(e) {
-      if (!dragStart) return;
-      imgX = e.clientX - dragStart.x;
-      imgY = e.clientY - dragStart.y;
-      applyImgTransform();
-    };
-    document.onmouseup = function() { dragStart = null; document.onmousemove = null; document.onmouseup = null; };
-  };
-  area2.onwheel = function(e) {
-    e.preventDefault();
-    var delta = e.deltaY > 0 ? 0.9 : 1.1;
-    imgScale = Math.min(5, Math.max(0.2, imgScale * delta));
-    applyImgTransform();
-  };
-  img.addEventListener('touchstart', function(e) {
-    e.preventDefault();
-    if (e.touches.length === 1) {
-      dragStart = {x: e.touches[0].clientX - imgX, y: e.touches[0].clientY - imgY};
-    } else if (e.touches.length === 2) {
-      dragStart = null;
-      lastDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
-    }
-  }, {passive: false});
-  img.addEventListener('touchmove', function(e) {
-    e.preventDefault();
-    if (e.touches.length === 1 && dragStart) {
-      imgX = e.touches[0].clientX - dragStart.x;
-      imgY = e.touches[0].clientY - dragStart.y;
-      applyImgTransform();
-    } else if (e.touches.length === 2) {
-      var dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
-      if (lastDist > 0) imgScale = Math.min(3, Math.max(0.5, imgScale * (dist / lastDist)));
-      lastDist = dist;
-      applyImgTransform();
-    }
-  }, {passive: false});
-  img.addEventListener('touchend', function() { dragStart = null; lastDist = 0; });
-
-  var lbl = document.getElementById('uploadLabel');
-  lbl.classList.add('loaded');
-  lbl.innerHTML = '<div class="thumb-row"><img class="photo-thumb" src="' + photoUrl + '"><span class="thumb-text">사진 변경하려면 탭</span><button class="btn-remove" onclick="clearPhoto(event)">제거</button></div>';
-}
-
-function clearPhoto(e) {
-  if (e && e.preventDefault) e.preventDefault();
-  photoUrl = null;
-  imgX = 0; imgY = 0; imgScale = 1;
-  var fi = document.getElementById('fileInput');
-  if (fi) fi.value = '';
-  document.getElementById('photoEditSection').style.display = 'none';
-  document.getElementById('photoArea').innerHTML =
-    '<div class="photo-empty"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="10" r="3"/><path d="M3 20c0-3 3-5 9-5s9 2 9 5"/></svg><span>사진을 넣어보세요</span></div>';
+function clearModalPhoto(e) {
+  e.preventDefault();
+  mPhotoUrl = null;
+  document.getElementById('fileInput').value = '';
   var lbl = document.getElementById('uploadLabel');
   lbl.classList.remove('loaded');
   lbl.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>탭하여 사진 선택</span>';
 }
 
-/* sync */
-function sync() {
-  var name = document.getElementById('iName').value || '이름';
-  var age = document.getElementById('iAge').value;
-  var job = document.getElementById('iJob').value;
-  var num = document.getElementById('iNum').value;
-  var show = document.getElementById('iShow').value;
-  var c1 = col.c1, c2 = col.c2, cb = col.cb;
-  var numStr = String(num).length < 2 ? '0' + num : num;
-
-  document.getElementById('stripeLeft').style.background = c1;
-  document.getElementById('stripeRight').style.background = c2;
-  document.getElementById('cardTag').textContent = show;
-  document.getElementById('cardBadge').textContent = numStr;
-  document.getElementById('cName').textContent = name;
-  document.getElementById('cAge').textContent = age + '세';
-  document.getElementById('cJob').textContent = job;
-  document.getElementById('cHeight').textContent = document.getElementById('iHeight').value + 'cm';
-  document.getElementById('cPos').textContent = 'NO. ' + numStr + ' · ' + show;
-  document.getElementById('cPos').style.color = c1;
-  document.getElementById('cLogo').textContent = show;
-  document.getElementById('card').style.background = cb;
-
-  var r = parseInt(cb.slice(1,3),16), g = parseInt(cb.slice(3,5),16), b = parseInt(cb.slice(5,7),16);
-  function rgba(a) { return 'rgba(' + r + ',' + g + ',' + b + ',' + a + ')'; }
-  document.getElementById('gradientOverlay').style.background =
-    'linear-gradient(to bottom,' + rgba(0) + ' 0%,' + rgba(0) + ' 40%,' +
-    rgba(0.15) + ' 52%,' + rgba(0.5) + ' 65%,' + rgba(0.85) + ' 80%,' + rgba(0.97) + ' 100%)';
-  document.getElementById('photoArea').style.background = '#111';
-  renderStats();
-}
-
-function renderStats() {
-  var c1 = col.c1;
-  var el = document.getElementById('cStats');
-  el.innerHTML = '';
-  STATS.forEach(function(s) {
-    var hearts = '';
-    for (var n = 1; n <= 5; n++) {
-      var filled = n <= s.val;
-      hearts += '<span style="font-size:15px;color:' + (filled ? c1 : 'rgba(255,255,255,0.2)') + ';line-height:1;">' + (filled ? '♥' : '♡') + '</span>';
-    }
-    var row = document.createElement('div');
-    row.className = 'stat-row';
-    row.innerHTML = '<span class="stat-lbl">' + s.lbl + '</span><span style="flex:1;display:flex;align-items:center;gap:2px;">' + hearts + '</span>';
-    el.appendChild(row);
-  });
-}
-
-/* ─── 다중 출연자 관리 ─── */
-var castList = [];
-var editingIdx = -1;
-
+/* ─── 저장/로드 ─── */
 function loadCast() {
   try { var s = localStorage.getItem('tryout_cast'); if (s) castList = JSON.parse(s); } catch(e) { castList = []; }
 }
@@ -462,6 +267,7 @@ function saveCast() {
   try { localStorage.setItem('tryout_cast', JSON.stringify(castList)); } catch(e) {}
 }
 
+/* ─── 모달 ─── */
 function openModal(idx) {
   editingIdx = (idx !== undefined) ? idx : -1;
   var d = editingIdx >= 0 ? castList[editingIdx] : null;
@@ -473,31 +279,30 @@ function openModal(idx) {
   document.getElementById('iNum').value    = d ? d.num    : '01';
   document.getElementById('iShow').value   = d ? d.show   : 'TRYOUT 2026';
 
-  col = { c1: d ? d.c1 : '#F0406A', c2: d ? d.c2 : '#1B2A4A', cb: d ? d.cb : '#f5f0e8' };
+  mCol = { c1: d?d.c1:'#F0406A', c2: d?d.c2:'#1B2A4A', cb: d?d.cb:'#f5f0e8' };
   ['c1','c2','cb'].forEach(function(k) {
-    var p = document.getElementById(k+'p'), h = document.getElementById(k+'h'), dot = document.getElementById(k+'d');
-    if (p) p.value = col[k]; if (h) h.value = col[k]; if (dot) dot.style.background = col[k];
+    var p=document.getElementById(k+'p'), h=document.getElementById(k+'h'), dot=document.getElementById(k+'d');
+    if(p) p.value=mCol[k]; if(h) h.value=mCol[k]; if(dot) dot.style.background=mCol[k];
   });
 
-  photoUrl = d ? (d.photo || null) : null;
-  imgX = d ? (d.imgX || 0) : 0;
-  imgY = d ? (d.imgY || 0) : 0;
-  imgScale = d ? (d.imgScale || 1) : 1;
-  if (photoUrl) { setPhoto(); applyImgTransform(); } else clearPhoto(null);
-
-  if (d && d.stats) {
-    STATS.forEach(function(s, i) { setStat(i, d.stats[i] !== undefined ? d.stats[i] : s.val); });
+  mPhotoUrl = d ? (d.photo||null) : null;
+  var lbl = document.getElementById('uploadLabel');
+  if (mPhotoUrl) {
+    lbl.classList.add('loaded');
+    lbl.innerHTML = '<div class="thumb-row"><img class="photo-thumb" src="'+mPhotoUrl+'"><span class="thumb-text">사진 변경하려면 탭</span><button class="btn-remove" onclick="clearModalPhoto(event)">제거</button></div>';
   } else {
-    STATS.forEach(function(s, i) { setStat(i, s.val); });
+    lbl.classList.remove('loaded');
+    lbl.innerHTML = '<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span>탭하여 사진 선택</span>';
   }
+  document.getElementById('fileInput').value = '';
+
+  if (d && d.stats) STATS.forEach(function(s,i){ setStat(i, d.stats[i]!==undefined?d.stats[i]:s.val); });
+  else STATS.forEach(function(s,i){ setStat(i,s.val); });
 
   document.getElementById('modalOverlay').classList.add('open');
-  sync();
 }
 
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-}
+function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
 
 function saveAndClose() {
   var data = {
@@ -507,13 +312,21 @@ function saveAndClose() {
     job:    document.getElementById('iJob').value,
     num:    document.getElementById('iNum').value || '01',
     show:   document.getElementById('iShow').value || 'TRYOUT 2026',
-    c1: col.c1, c2: col.c2, cb: col.cb,
-    photo: photoUrl || null,
-    imgX: imgX, imgY: imgY, imgScale: imgScale,
-    stats: STATS.map(function(s) { return s.val; })
+    c1: mCol.c1, c2: mCol.c2, cb: mCol.cb,
+    photo: mPhotoUrl || null,
+    imgX: 0, imgY: 0, imgScale: 1,
+    stats: STATS.map(function(s){ return s.val; })
   };
-  if (editingIdx >= 0) castList[editingIdx] = data;
-  else castList.push(data);
+  // 수정 시 기존 imgX/Y/Scale 유지
+  if (editingIdx >= 0) {
+    var old = castList[editingIdx];
+    if (old && mPhotoUrl === old.photo) {
+      data.imgX = old.imgX||0; data.imgY = old.imgY||0; data.imgScale = old.imgScale||1;
+    }
+    castList[editingIdx] = data;
+  } else {
+    castList.push(data);
+  }
   saveCast();
   renderGrid();
   closeModal();
@@ -521,27 +334,19 @@ function saveAndClose() {
 
 function deleteCard(idx) {
   if (!confirm('이 출연자를 삭제할까요?')) return;
-  castList.splice(idx, 1);
-  saveCast();
-  renderGrid();
+  castList.splice(idx,1); saveCast(); renderGrid();
 }
-
 function clearAll() {
-  if (castList.length === 0) return;
+  if (!castList.length) return;
   if (!confirm('모든 출연자를 초기화할까요?')) return;
-  castList = [];
-  saveCast();
-  renderGrid();
+  castList=[]; saveCast(); renderGrid();
 }
 
+/* ─── 그리드 렌더링 ─── */
 function renderGrid() {
   var grid = document.getElementById('castGrid');
   var empty = document.getElementById('castEmpty');
-  if (castList.length === 0) {
-    grid.innerHTML = '';
-    grid.appendChild(empty);
-    return;
-  }
+  if (!castList.length) { grid.innerHTML=''; grid.appendChild(empty); return; }
   grid.innerHTML = '';
   castList.forEach(function(d, idx) {
     var item = document.createElement('div');
@@ -549,114 +354,176 @@ function renderGrid() {
 
     var cardEl = document.createElement('div');
     cardEl.className = 'card';
-    cardEl.id = 'castcard_' + idx;
+    cardEl.id = 'castcard_'+idx;
     cardEl.style.background = d.cb;
-    cardEl.innerHTML = buildMiniCardHTML(d, idx);
-    applyMiniCardStyle(cardEl, d);
-    item.appendChild(cardEl);
+    cardEl.innerHTML = buildCardHTML(d, idx);
+    applyGradient(cardEl, d);
+    attachDrag(cardEl, idx);
 
+    item.appendChild(cardEl);
+    if (d.photo) {
+      var hint = document.createElement('div');
+      hint.className = 'photo-hint';
+      hint.textContent = '드래그·핀치로 사진 위치 조절';
+      item.appendChild(hint);
+    }
     var actions = document.createElement('div');
     actions.className = 'cast-item-actions';
     actions.innerHTML =
-      '<button class="btn-edit-cast" onclick="openModal(' + idx + ')">수정</button>' +
-      '<button class="btn-dl-cast" onclick="downloadCard(' + idx + ')">&#11015; 저장</button>' +
-      '<button class="btn-del-cast" onclick="deleteCard(' + idx + ')">삭제</button>';
+      '<button class="btn-edit-cast" onclick="openModal('+idx+')">수정</button>'+
+      '<button class="btn-dl-cast" onclick="downloadCard('+idx+')">&#11015; 저장</button>'+
+      '<button class="btn-del-cast" onclick="deleteCard('+idx+')">삭제</button>';
     item.appendChild(actions);
     grid.appendChild(item);
   });
 }
 
-function buildMiniCardHTML(d, idx) {
-  var numStr = String(d.num).length < 2 ? '0' + d.num : String(d.num);
+function buildCardHTML(d, idx) {
+  var numStr = String(d.num).length<2 ? '0'+d.num : String(d.num);
   var photoHtml = d.photo
-    ? '<img id="miniImg_' + idx + '" src="' + d.photo + '" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transform-origin:center top;position:absolute;top:0;left:0;transform:translate(' + (d.imgX||0) + 'px,' + (d.imgY||0) + 'px) scale(' + (d.imgScale||1) + ');">'
-    : '<div class="photo-empty"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="10" r="3"/><path d="M3 20c0-3 3-5 9-5s9 2 9 5"/></svg><span>사진없음</span></div>';
+    ? '<img id="cimg_'+idx+'" src="'+d.photo+'" style="transform:translate('+(d.imgX||0)+'px,'+(d.imgY||0)+'px) scale('+(d.imgScale||1)+')">'
+    : '<div class="photo-empty"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="10" r="3"/><path d="M3 20c0-3 3-5 9-5s9 2 9 5"/></svg><span style="color:rgba(255,255,255,0.4);">사진없음</span></div>';
 
-  var c1 = d.c1;
-  var statsHtml = '';
-  if (d.stats) {
-    var LBLS = ['신체','민첩','집중','기술','행운'];
-    for (var i = 0; i < 5; i++) {
-      var v = d.stats[i] || 0;
-      var hearts = '';
-      for (var n = 1; n <= 5; n++) {
-        hearts += '<span style="font-size:15px;color:' + (n<=v ? c1 : 'rgba(255,255,255,0.2)') + ';line-height:1;">' + (n<=v ? '♥':'♡') + '</span>';
-      }
-      statsHtml += '<div class="stat-row"><span class="stat-lbl">' + LBLS[i] + '</span><span style="flex:1;display:flex;align-items:center;gap:2px;">' + hearts + '</span></div>';
+  var c1=d.c1;
+  var statsHtml='';
+  if(d.stats){
+    var LBLS=['신체','민첩','집중','기술','행운'];
+    for(var i=0;i<5;i++){
+      var v=d.stats[i]||0, hearts='';
+      for(var n=1;n<=5;n++) hearts+='<span style="font-size:13px;color:'+(n<=v?c1:'rgba(255,255,255,0.2)')+';">'+(n<=v?'♥':'♡')+'</span>';
+      statsHtml+='<div class="stat-row"><span class="stat-lbl">'+LBLS[i]+'</span><span style="display:flex;gap:1px;">'+hearts+'</span></div>';
     }
   }
 
-  return '<div class="card-jersey-lines"></div>' +
-    '<div class="card-stripe"><div class="card-stripe-left" style="background:' + d.c1 + '"></div><div class="card-stripe-right" style="background:' + d.c2 + '"></div></div>' +
-    '<div class="card-tag" style="background:' + d.c1 + '">' + d.show + '</div>' +
-    '<div class="card-number-badge">' + numStr + '</div>' +
-    '<div class="photo-area" style="background:#111;">' + photoHtml + '</div>' +
-    '<div class="gradient-overlay" style="position:absolute;inset:0;z-index:3;pointer-events:none;" id="miniGrad_' + idx + '"></div>' +
-    '<div class="card-info">' +
-      '<div style="display:flex;flex-direction:column;justify-content:flex-end;">' +
-        '<div class="card-position" style="color:' + d.c1 + '">NO. ' + numStr + ' · ' + d.show + '</div>' +
-        '<div style="height:3px;"></div>' +
-        '<div class="card-name">' + d.name + '</div>' +
-        '<div style="height:5px;"></div>' +
-        '<div class="card-age-job"><span>' + d.age + '세</span><span style="opacity:0.4;margin:0 2px;">·</span><span>' + d.job + '</span><span style="opacity:0.4;margin:0 2px;">·</span><span>' + d.height + 'cm</span></div>' +
-        '<div style="height:8px;"></div>' +
-      '</div>' +
-      '<div class="card-divider" style="background:linear-gradient(90deg,' + d.c1 + ' 0%,rgba(255,255,255,0.2) 70%,transparent 100%);"></div>' +
-      '<div style="display:flex;flex-direction:column;justify-content:flex-start;">' +
-        '<div style="height:5px;"></div>' +
-        '<div class="card-stats">' + statsHtml + '</div>' +
-        '<div style="height:6px;"></div>' +
-        '<div style="text-align:right;font-family:\'Black Han Sans\',sans-serif;font-size:9px;letter-spacing:3px;color:rgba(255,255,255,0.2);">' + d.show + '</div>' +
-      '</div>' +
-    '</div>' +
-    '<div class="card-logo">' + d.show + '</div>';
+  return '<div class="card-stripe"><div class="card-stripe-left" style="background:'+d.c1+'"></div><div class="card-stripe-right" style="background:'+d.c2+'"></div></div>'+
+    '<div class="card-tag" style="background:'+d.c1+'">'+d.show+'</div>'+
+    '<div class="card-number-badge">'+numStr+'</div>'+
+    '<div class="photo-area" id="cpa_'+idx+'">'+photoHtml+'</div>'+
+    '<div class="gradient-overlay" id="cgo_'+idx+'"></div>'+
+    '<div class="card-info">'+
+      '<div class="card-position" style="color:'+d.c1+'">NO. '+numStr+' · '+d.show+'</div>'+
+      '<div style="height:3px;"></div>'+
+      '<div class="card-name">'+d.name+'</div>'+
+      '<div style="height:4px;"></div>'+
+      '<div class="card-age-job"><span>'+d.age+'세</span><span style="opacity:0.4;">·</span><span>'+d.job+'</span><span style="opacity:0.4;">·</span><span>'+d.height+'cm</span></div>'+
+      '<div style="height:6px;"></div>'+
+      '<div class="card-divider" style="background:linear-gradient(90deg,'+d.c1+' 0%,rgba(255,255,255,0.15) 70%,transparent 100%);"></div>'+
+      '<div style="height:4px;"></div>'+
+      '<div class="card-stats">'+statsHtml+'</div>'+
+      '<div class="card-logo">'+d.show+'</div>'+
+    '</div>';
 }
 
-function applyMiniCardStyle(el, d) {
-  var r = parseInt(d.cb.slice(1,3),16), g = parseInt(d.cb.slice(3,5),16), b = parseInt(d.cb.slice(5,7),16);
-  function rgba(a) { return 'rgba('+r+','+g+','+b+','+a+')'; }
-  var grad = 'linear-gradient(to bottom,' + rgba(0) + ' 0%,' + rgba(0) + ' 40%,' +
-    rgba(0.15) + ' 52%,' + rgba(0.5) + ' 65%,' + rgba(0.85) + ' 80%,' + rgba(0.97) + ' 100%)';
-  var go = el.querySelector('.gradient-overlay');
-  if (go) go.style.background = grad;
+function applyGradient(cardEl, d) {
+  var go = cardEl.querySelector('.gradient-overlay');
+  if (!go) return;
+  var r=parseInt(d.cb.slice(1,3),16), g=parseInt(d.cb.slice(3,5),16), b=parseInt(d.cb.slice(5,7),16);
+  function rgba(a){ return 'rgba('+r+','+g+','+b+','+a+')'; }
+  go.style.background = 'linear-gradient(to bottom,'+rgba(0)+' 0%,'+rgba(0)+' 40%,'+rgba(0.15)+' 52%,'+rgba(0.5)+' 65%,'+rgba(0.85)+' 80%,'+rgba(0.97)+' 100%)';
 }
 
-function downloadCard(idx) {
+/* ─── 그리드 카드에서 직접 드래그/핀치 ─── */
+function attachDrag(cardEl, idx) {
+  var pa = cardEl.querySelector('.photo-area');
+  if (!pa || !castList[idx].photo) return;
+
+  var dragStart = null, lastDist = 0;
+
+  pa.addEventListener('mousedown', function(e) {
+    e.preventDefault();
+    var d = castList[idx];
+    dragStart = {x: e.clientX-(d.imgX||0), y: e.clientY-(d.imgY||0)};
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  });
+  function onMouseMove(e) {
+    if (!dragStart) return;
+    castList[idx].imgX = e.clientX - dragStart.x;
+    castList[idx].imgY = e.clientY - dragStart.y;
+    updateImgTransform(idx);
+  }
+  function onMouseUp() {
+    dragStart = null;
+    saveCast();
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  }
+
+  pa.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    castList[idx].imgScale = Math.min(5, Math.max(0.2, (castList[idx].imgScale||1) * (e.deltaY>0?0.92:1.08)));
+    updateImgTransform(idx);
+    saveCast();
+  }, {passive: false});
+
+  pa.addEventListener('touchstart', function(e) {
+    e.preventDefault();
+    var d = castList[idx];
+    if (e.touches.length===1) {
+      dragStart = {x: e.touches[0].clientX-(d.imgX||0), y: e.touches[0].clientY-(d.imgY||0)};
+    } else if (e.touches.length===2) {
+      dragStart = null;
+      lastDist = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
+    }
+  }, {passive:false});
+
+  pa.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+    if (e.touches.length===1 && dragStart) {
+      castList[idx].imgX = e.touches[0].clientX - dragStart.x;
+      castList[idx].imgY = e.touches[0].clientY - dragStart.y;
+      updateImgTransform(idx);
+    } else if (e.touches.length===2) {
+      var dist = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
+      if (lastDist>0) castList[idx].imgScale = Math.min(5, Math.max(0.2, (castList[idx].imgScale||1)*(dist/lastDist)));
+      lastDist = dist;
+      updateImgTransform(idx);
+    }
+  }, {passive:false});
+
+  pa.addEventListener('touchend', function() { dragStart=null; lastDist=0; saveCast(); });
+}
+
+function updateImgTransform(idx) {
+  var img = document.getElementById('cimg_'+idx);
+  if (!img) return;
   var d = castList[idx];
-  if (!d) return;
-  var el = document.getElementById('castcard_' + idx);
-  if (!el) return;
+  img.style.transform = 'translate('+(d.imgX||0)+'px,'+(d.imgY||0)+'px) scale('+(d.imgScale||1)+')';
+}
 
-  var sc = 3, W = 300, H = 520;
+/* ─── 저장 ─── */
+function downloadCard(idx) {
+  var el = document.getElementById('castcard_'+idx);
+  if (!el) return;
+  var d = castList[idx];
   html2canvas(el, {
-    scale: sc,
+    scale: 3,
     useCORS: true,
     allowTaint: true,
-    backgroundColor: null,
+    backgroundColor: d.cb,
     logging: false,
-    width: W,
-    height: H
+    width: 300,
+    height: 520,
+    scrollX: -window.scrollX,
+    scrollY: -window.scrollY
   }).then(function(canvas) {
-    // 정확히 카드 크기(300x520)로 자르기
+    // canvas가 크더라도 앞 900x1560만 잘라서 저장
     var out = document.createElement('canvas');
-    out.width = W * sc;
-    out.height = H * sc;
-    out.getContext('2d').drawImage(canvas, 0, 0, W*sc, H*sc, 0, 0, W*sc, H*sc);
+    out.width = 900; out.height = 1560;
+    out.getContext('2d').drawImage(canvas, 0, 0, 900, 1560, 0, 0, 900, 1560);
     var a = document.createElement('a');
-    a.download = 'tryout_' + (d.name || 'card') + '.png';
+    a.download = 'tryout_'+(d.name||'card')+'.png';
     a.href = out.toDataURL('image/png');
     a.click();
   });
 }
 
-/* modal 바깥 클릭 닫기 */
 document.getElementById('modalOverlay').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
+  if (e.target===this) closeModal();
 });
 
 loadCast();
 renderGrid();
-sync();
 </script>
 </body>
 </html>
