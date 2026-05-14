@@ -64,7 +64,7 @@ body {
 .card-tag { position: absolute; top: 16px; left: 0; z-index: 6; background: var(--pink); padding: 4px 14px 4px 12px; clip-path: polygon(0 0, 100% 0, 92% 100%, 0 100%); font-family: 'Black Han Sans', sans-serif; font-size: 11px; letter-spacing: 3px; color: #fff; }
 .card-number-badge { position: absolute; top: 12px; right: 14px; z-index: 6; font-family: 'Anton', sans-serif; font-size: 48px; line-height: 1; color: rgba(27,42,74,0.07); letter-spacing: -2px; }
 .photo-area { width: 100%; position: absolute; inset: 0; overflow: hidden; background: #000; }
-.photo-area img { width: 100%; height: 100%; object-fit: contain; display: block; transform-origin: center center; user-select: none; -webkit-user-drag: none; touch-action: none; position: absolute; top: 0; left: 0; }
+.photo-area img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; transform-origin: center center; user-select: none; -webkit-user-drag: none; touch-action: none; position: absolute; top: 0; left: 0; }
 .gradient-overlay { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
 .photo-empty { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
 .photo-empty svg { opacity: 0.25; stroke: #1B2A4A; }
@@ -337,7 +337,7 @@ function setPhoto() {
   var img = document.createElement('img');
   img.id = 'cardImg';
   img.src = photoUrl;
-  img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;transform-origin:center center;user-select:none;-webkit-user-drag:none;touch-action:none;position:absolute;top:0;left:0;';
+  img.style.cssText = 'width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transform-origin:center top;user-select:none;-webkit-user-drag:none;touch-action:none;position:absolute;top:0;left:0;';
   area.appendChild(img);
   document.getElementById('photoEditSection').style.display = 'block';
 
@@ -569,7 +569,7 @@ function renderGrid() {
 function buildMiniCardHTML(d, idx) {
   var numStr = String(d.num).length < 2 ? '0' + d.num : String(d.num);
   var photoHtml = d.photo
-    ? '<img id="miniImg_' + idx + '" src="' + d.photo + '" style="width:100%;height:100%;object-fit:cover;display:block;transform-origin:center center;position:absolute;top:0;left:0;transform:translate(' + (d.imgX||0) + 'px,' + (d.imgY||0) + 'px) scale(' + (d.imgScale||1) + ');">'
+    ? '<img id="miniImg_' + idx + '" src="' + d.photo + '" style="width:100%;height:100%;object-fit:cover;object-position:center top;display:block;transform-origin:center top;position:absolute;top:0;left:0;transform:translate(' + (d.imgX||0) + 'px,' + (d.imgY||0) + 'px) scale(' + (d.imgScale||1) + ');">'
     : '<div class="photo-empty"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" stroke-width="1.2"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="12" cy="10" r="3"/><path d="M3 20c0-3 3-5 9-5s9 2 9 5"/></svg><span>사진없음</span></div>';
 
   var c1 = d.c1;
