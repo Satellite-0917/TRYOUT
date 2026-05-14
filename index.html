@@ -498,13 +498,19 @@ function downloadCard(idx) {
 
   var d = castList[idx];
 
-  html2canvas(el, {
-    scale: 3,
-    useCORS: true,
-    allowTaint: true,
-    backgroundColor: null,
-    logging: false
-  }).then(function(canvas) {
+html2canvas(el, {
+  scale: 1,
+  useCORS: true,
+  allowTaint: true,
+  backgroundColor: null,
+  logging: false,
+
+  width: 300,
+  height: 520,
+
+  windowWidth: 300,
+  windowHeight: 520
+}).then(function(canvas) {
 
     var a = document.createElement('a');
     a.download = 'tryout_' + (d.name || 'card') + '.png';
