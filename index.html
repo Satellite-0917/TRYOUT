@@ -124,7 +124,7 @@ input[type=color] { width: 36px; height: 34px; border: 1px solid rgba(27,42,74,0
 <div class="cast-grid" id="castGrid">
   <div class="cast-empty" id="castEmpty">
     <span class="empty-icon">&#9825;</span>
-    출연자를 추가해보세요
+    출연자를 추가해 보세요
   </div>
 </div>
 
@@ -138,13 +138,13 @@ input[type=color] { width: 36px; height: 34px; border: 1px solid rgba(27,42,74,0
         <div style="display:flex;flex-direction:column;gap:10px;margin-top:10px;">
           <div class="field"><label>이름</label><input type="text" id="iName" value=""></div>
           <div class="row2">
-            <div class="field"><label>나이</label><input type="number" id="iAge" value="24" min="18" max="60"></div>
-            <div class="field"><label>키 (cm)</label><input type="number" id="iHeight" value="168" min="140" max="220"></div>
+            <div class="field"><label>나이</label><input type="number" id="iAge" value="" min="20" max="40"></div>
+            <div class="field"><label>키 (cm)</label><input type="number" id="iHeight" value="" min="150" max="200"></div>
           </div>
           <div class="field"><label>직업</label><input type="text" id="iJob" value=""></div>
           <div class="row2">
-            <div class="field"><label>등번호</label><input type="text" id="iNum" value="01"></div>
-            <div class="field"><label>프로그램명</label><input type="text" id="iShow" value="TRYOUT 2026"></div>
+            <div class="field"><label>등번호</label><input type="text" id="iNum" value=""></div>
+            <div class="field"><label>프로그램명</label><input type="text" id="iShow" value="TRYOUT : LOVE"></div>
           </div>
         </div>
       </div>
@@ -199,11 +199,11 @@ var castList = [];
 var editingIdx = -1;
 
 var STATS = [
-  {key:'body',  lbl:'신체', val:3},
-  {key:'agil',  lbl:'민첩', val:4},
-  {key:'focus', lbl:'집중', val:3},
-  {key:'skill', lbl:'기술', val:5},
-  {key:'luck',  lbl:'행운', val:2}
+  {key:'body',  lbl:'신체', val:0},
+  {key:'agil',  lbl:'민첩', val:0},
+  {key:'focus', lbl:'집중', val:0},
+  {key:'skill', lbl:'기술', val:0},
+  {key:'luck',  lbl:'행운', val:0}
 ];
 
 /* stat boxes */
