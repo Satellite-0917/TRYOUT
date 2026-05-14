@@ -596,11 +596,20 @@ function downloadCard(idx) {
     ctx.fillText(numStr, W-14, 62);
     ctx.textAlign = 'left';
 
-    // 8. NO. 텍스트
+    // 8. NO. 텍스트 (bottom 기준으로 계산 - CSS card-info: bottom:0, padding-bottom:24)
+    // 스탯 3줄(행운까지): row0~row2 = 3rows * 14px = 42px, + 구분선 + 여백 등 총 약 90px
+    // 이름~워터마크 전체 블록 높이 ≈ 140px, bottom에서 24px 패딩
+    var blockBottom = H - 24;           // 워터마크 기준선
+    var statH = 3 * 14 + 10;            // 스탯 3행 + 상단 여백
+    var dividerY = blockBottom - statH; // 구분선 Y
+    var noY  = dividerY - 62;           // NO. 텍스트
+    var nameY = dividerY - 30;          // 이름
+    var subY  = dividerY - 14;          // 나이·직업·키
+
     ctx.fillStyle = d.c1;
     ctx.font = '9px "Black Han Sans", sans-serif';
     ctx.letterSpacing = '3px';
-    ctx.fillText('NO. '+numStr+' · '+d.show, 16, H*0.615);
+    ctx.fillText('NO. '+numStr+' · '+d.show, 16, noY);
 
     // 9. 이름
     ctx.fillStyle = '#fff';
@@ -608,17 +617,17 @@ function downloadCard(idx) {
     ctx.letterSpacing = '1px';
     ctx.shadowColor = 'rgba(0,0,0,0.4)';
     ctx.shadowBlur = 8;
-    ctx.fillText(d.name, 16, H*0.615+30);
+    ctx.fillText(d.name, 16, nameY);
     ctx.shadowBlur = 0;
 
     // 10. 나이·직업·키
     ctx.fillStyle = 'rgba(255,255,255,0.8)';
     ctx.font = '10px Pretendard, "Noto Sans KR", sans-serif';
     ctx.letterSpacing = '1px';
-    ctx.fillText(d.age+'세  ·  '+d.job+'  ·  '+d.height+'cm', 16, H*0.615+48);
+    ctx.fillText(d.age+'세  ·  '+d.job+'  ·  '+d.height+'cm', 16, subY);
 
     // 11. 구분선
-    var lineY = H*0.615+60;
+    var lineY = dividerY;
     var g2 = ctx.createLinearGradient(16,0,W-16,0);
     g2.addColorStop(0,d.c1); g2.addColorStop(0.7,'rgba(255,255,255,0.15)'); g2.addColorStop(1,'rgba(255,255,255,0)');
     ctx.strokeStyle = g2; ctx.lineWidth = 1;
@@ -649,7 +658,7 @@ function downloadCard(idx) {
     ctx.font = '9px "Black Han Sans", sans-serif';
     ctx.letterSpacing = '3px';
     ctx.textAlign = 'right';
-    ctx.fillText(d.show, W-14, H-12);
+    ctx.fillText(d.show, W-14, blockBottom);
 
     ctx.restore();
 
