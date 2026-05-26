@@ -739,13 +739,13 @@ function resizeImage(file,maxSize,quality){
     r.onload=ev=>{
       const img=new Image();
       img.onload=()=>{
-        let w=img.width,h=img.height;
-        if(w>maxSize||h>maxSize){
-          if(w>h){h=Math.round(h*maxSize/w);w=maxSize}
-          else{w=Math.round(w*maxSize/h);h=maxSize}
-        }
-        const cv=document.createElement('canvas');cv.width=w;cv.height=h;
-        cv.getContext('2d').drawImage(img,0,0,w,h);
+        // 정사각형으로 center crop
+        const size=Math.min(img.width,img.height);
+        const sx=(img.width-size)/2;
+        const sy=0; // 상단 기준 crop
+        const out=Math.min(size,maxSize);
+        const cv=document.createElement('canvas');cv.width=out;cv.height=out;
+        cv.getContext('2d').drawImage(img,sx,sy,size,size,0,0,out,out);
         res(cv.toDataURL('image/jpeg',quality));
       };
       img.onerror=rej;
