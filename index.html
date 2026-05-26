@@ -401,7 +401,15 @@ button{cursor:pointer}
       <button id="btn-tag-add" onclick="addTagInput()">+</button>
     </div>
   </div>
-    <div class="f"><label>지정색 (메인)</label><input type="color" id="fc" value="#ff4d6d" oninput="onColor()"></div>
+    <div class="f"><label>지정색 (메인)</label>
+      <div style="display:flex;gap:6px;align-items:center">
+        <input type="color" id="fc" value="#ff4d6d" oninput="onColor();el('fc-hex').value=this.value" style="width:36px;flex-shrink:0;padding:2px 3px;height:32px;cursor:pointer;border-radius:6px;border:1px solid var(--border);background:#fdf9f7">
+        <input type="text" id="fc-hex" value="#ff4d6d" placeholder="#ff4d6d" maxlength="7"
+          style="flex:1;background:#fdf9f7;border:1px solid var(--border);border-radius:6px;color:var(--text);padding:5px 8px;font-size:12px;font-family:'Bebas Neue',monospace;letter-spacing:1px"
+          oninput="if(/^#[0-9a-fA-F]{6}$/.test(this.value)){el('fc').value=this.value;onColor()}"
+          onfocus="this.style.borderColor='var(--pink)'" onblur="this.style.borderColor='var(--border)'">
+      </div>
+    </div>
     <div class="swrow">
       <div class="sw"><div class="sw-d" id="sw-m"></div><div class="sw-l">메인</div></div>
       <div class="sw"><div class="sw-d" id="sw-p"></div><div class="sw-l">포인트</div></div>
@@ -544,6 +552,7 @@ function fromCast(){
   const c=gc();if(!c)return;
   set('fn',c.name);set('fa',c.age);set('fh',c.height);set('fj',c.job);
   set('fno',c.number);set('fpg',c.program);set('fc',c.cm||'#ff4d6d');
+  el('fc-hex').value=c.cm||'#ff4d6d';
   el('fbio').value=c.bio||'';
   SK.forEach(k=>drawH(k,(c.stats&&c.stats[k]!=null)?c.stats[k]:3));
   renderTags(c.tags||[]);
