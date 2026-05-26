@@ -476,8 +476,6 @@ button{cursor:pointer}
 <div id="toast"></div>
 
 <script>
-const BIN_ID='6a0e80096610dd3ae87d3187';
-const BIN_KEY='$2a$10$Fq72qelbNKT.abOS3QzWiu/oFecNaozQ0GvJ684583V5W040m0PHi';
 const CLD='djlx3dtjq',PRESET='vns6gkqc';
 const SL=['신체','민첩','집중','기술','행운'];
 const SK=['phy','agi','foc','tec','lck'];
@@ -492,27 +490,22 @@ function def(n='세는'){
     tags:[],
     stats:{phy:3,agi:3,foc:3,tec:3,lck:3}};
 }
-window.addEventListener('DOMContentLoaded',async()=>{
-  buildSE();await load();
+window.addEventListener('DOMContentLoaded',()=>{
+  buildSE();load();
   if(!list.length)el('empty').style.display='flex';
   else sel(list[0].id);
 });
 
-async function load(){
-  ldShow(1);
-  try{const r=await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`,{headers:{'X-Master-Key':BIN_KEY}});
-    if(!r.ok)throw 0;list=(await r.json()).record.castList||[];}
-  catch{list=[];toast('데이터 불러오기 실패')}finally{ldShow(0)}
+function load(){
+  try{const d=localStorage.getItem('tryout_cast');list=d?JSON.parse(d):[];}
+  catch{list=[];}
 }
-async function save(){
-  push();ldShow(1);
-  try{const r=await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`,{method:'PUT',
-    headers:{'Content-Type':'application/json','X-Master-Key':BIN_KEY},
-    body:JSON.stringify({castList:list})});
-    if(!r.ok)throw 0;toast('💾 저장됐어요!');}
-  catch{toast('저장 실패')}finally{ldShow(0)}
+function save(){
+  push();
+  try{localStorage.setItem('tryout_cast',JSON.stringify(list));toast('💾 저장됐어요!');}
+  catch{toast('저장 실패')}
 }
-function as(){clearTimeout(asT);asT=setTimeout(save,3000)}
+function as(){clearTimeout(asT);asT=setTimeout(save,1000)}
 
 async function upload(file){
   const fd=new FormData();fd.append('file',file);fd.append('upload_preset',PRESET);
