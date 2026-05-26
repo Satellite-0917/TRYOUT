@@ -489,7 +489,6 @@ button{cursor:pointer}
 <div id="toast"></div>
 
 <script>
-const CLD='djlx3dtjq',PRESET='vns6gkqc';
 const SL=['신체','민첩','집중','기술','행운'];
 const SK=['phy','agi','foc','tec','lck'];
 let list=[],cur=null,asT=null;
@@ -519,12 +518,6 @@ function save(){
   catch{toast('저장 실패')}
 }
 function as(){clearTimeout(asT);asT=setTimeout(save,1000)}
-
-async function upload(file){
-  const fd=new FormData();fd.append('file',file);fd.append('upload_preset',PRESET);
-  const r=await fetch(`https://api.cloudinary.com/v1_1/${CLD}/image/upload`,{method:'POST',body:fd});
-  if(!r.ok)throw 0;return(await r.json()).secure_url;
-}
 
 function addCast(){const c=def();list.push(c);el('empty').style.display='none';renderSB();sel(c.id);as()}
 function delCast(id,e){
@@ -732,10 +725,35 @@ function sync(){
 function onDrop(e){e.preventDefault();el('pup').classList.remove('drag');const f=e.dataTransfer.files[0];if(f&&f.type.startsWith('image/'))doPhoto(f)}
 function onFile(e){const f=e.target.files[0];if(f)doPhoto(f)}
 async function doPhoto(file){
-  const r=new FileReader();r.onload=ev=>setPhoto(ev.target.result);r.readAsDataURL(file);
-  el('ust').textContent='⏫ 업로드 중…';ldShow(1);
-  try{const url=await upload(file);const c=gc();if(c)c.photoUrl=url;setPhoto(url);el('ust').textContent='✅ 완료';as();toast('사진 업로드 완료!')}
-  catch{el('ust').textContent='❌ 실패 (로컬만)';toast('Cloudinary 실패')}finally{ldShow(0)}
+  el('ust').textContent='⏫ 처리 중…';ldShow(1);
+  try{
+    const base64=await resizeImage(file,800,0.82);
+    const c=gc();if(c)c.photoUrl=base64;
+    setPhoto(base64);
+    el('ust').textContent='✅ 완료';as();toast('사진 업로드 완료!');
+  }catch(e){el('ust').textContent='❌ 실패';toast('사진 처리 실패')}finally{ldShow(0)}
+}
+function resizeImage(file,maxSize,quality){
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=ev=>{
+      const img=new Image();
+      img.onload=()=>{
+        let w=img.width,h=img.height;
+        if(w>maxSize||h>maxSize){
+          if(w>h){h=Math.round(h*maxSize/w);w=maxSize}
+          else{w=Math.round(w*maxSize/h);h=maxSize}
+        }
+        const cv=document.createElement('canvas');cv.width=w;cv.height=h;
+        cv.getContext('2d').drawImage(img,0,0,w,h);
+        res(cv.toDataURL('image/jpeg',quality));
+      };
+      img.onerror=rej;
+      img.src=ev.target.result;
+    };
+    r.onerror=rej;
+    r.readAsDataURL(file);
+  });
 }
 function setPhoto(url){
   const img=el('z-photo-img'),ph=el('z-photo-ph'),th=el('pthumb');
@@ -772,7 +790,7 @@ function offTP(){tp=null;window.removeEventListener('touchmove',onTP);window.rem
 async function dl(){
   ldShow(1);
   try{
-    const cv=await html2canvas(el('card'),{scale:3,useCORS:true,allowTaint:true,backgroundColor:null});
+    const cv=await html2canvas(el('card'),{scale:3,useCORS:true,allowTaint:true,backgroundColor:null,logging:false});
     const a=document.createElement('a');a.download=(get('fn')||'card')+'_profile.png';
     a.href=cv.toDataURL('image/png');a.click();toast('⬇ 이미지 저장됐어요!');
   }catch{toast('이미지 저장 실패')}finally{ldShow(0)}
